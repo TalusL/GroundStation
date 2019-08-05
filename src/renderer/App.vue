@@ -12,4 +12,16 @@
 
 <style>
   /* CSS */
+  body{
+    margin: 0;
+    padding: 0;
+  }
+  .amap-logo{
+    display: none !important;
+  }
+  .amap-copyright{
+    display: none !important;
+  }
+
+
 </style>
