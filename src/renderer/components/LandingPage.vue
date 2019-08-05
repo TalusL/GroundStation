@@ -20,9 +20,7 @@
         //是否监控地图容器尺寸变化
         resizeEnable: true,
         //初始化地图层级
-        zoom:11,
-        //初始化地图中心点
-        center: [116.397428, 39.90923],
+        zoom:15,
         mapStyle: "amap://styles/dark",
       });
     }
