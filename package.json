@@ -62,6 +62,8 @@
     "vuex-electron": "^1.0.0"
   },
   "devDependencies": {
+    "less": "^3.8.1",
+    "less-loader": "^4.1.0",
     "ajv": "^6.5.0",
     "babel-core": "^6.26.3",
     "babel-loader": "^7.1.4",

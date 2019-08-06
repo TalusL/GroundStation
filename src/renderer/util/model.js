@@ -46,7 +46,7 @@ let Model = function (wrapper, canvas) {
   }
 
   // initialize render size for current canvas size
-  this.renderer.setSize(this.wrapper.clientWidth * 2, this.wrapper.clientHeight * 2)
+  this.renderer.setSize(this.wrapper.clientWidth, this.wrapper.clientHeight)
 
   // load the model including materials
   let modelFile = useWebGLRenderer ? mixerList[3 - 1].model : 'fallback'
@@ -139,7 +139,7 @@ Model.prototype.render = function () {
 
 // handle canvas resize
 Model.prototype.resize = function () {
-  this.renderer.setSize(this.wrapper.clientWidth * 2, this.wrapper.clientHeight * 2)
+  this.renderer.setSize(this.wrapper.clientWidth, this.wrapper.clientHeight)
 
   this.camera.aspect = this.wrapper.clientWidth / this.wrapper.clientHeight
   this.camera.updateProjectionMatrix()
