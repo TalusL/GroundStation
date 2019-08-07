@@ -72,7 +72,7 @@
                 setInterval(() => {
                     this.model.rotateBy(this.flightGesture.roll, this.flightGesture.yaw, this.flightGesture.pitch);
                     this.flightGesture.yaw--;
-                    if (this.flightGesture.roll >= 360) {
+                    if (this.flightGesture.yaw <= 0) {
                         this.flightGesture.yaw = 360;
                     }
                 }, 100);
