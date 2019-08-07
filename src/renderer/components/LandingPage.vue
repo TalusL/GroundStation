@@ -83,9 +83,6 @@
             this.createMap();
         },
         created() {
-            window.addEventListener('resize', () => {
-                this.$nextTick(() => this.model.resize());
-            });
         }
     }
 </script>
