@@ -23,7 +23,7 @@ function createWindow () {
     height: 768,
     useContentSize: true,
     width: 1200,
-    resizable: false,
+    resizable: false
   })
 
   mainWindow.loadURL(winURL)
@@ -31,8 +31,6 @@ function createWindow () {
   mainWindow.on('closed', () => {
     mainWindow = null
   })
-
-
 
   Menu.setApplicationMenu(null)
 }

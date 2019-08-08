@@ -54,8 +54,11 @@
   },
   "dependencies": {
     "axios": "^0.18.0",
+    "echarts": "^4.2.1",
+    "element-ui": "^2.11.1",
     "three.js": "^0.77.1",
     "vue": "^2.5.16",
+    "vue-echarts": "^4.0.3",
     "vue-electron": "^1.0.6",
     "vue-router": "^3.0.1",
     "vuex": "^3.0.1",

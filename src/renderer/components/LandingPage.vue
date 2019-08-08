@@ -26,7 +26,7 @@
                     </div>
                 </div>
             </div>
-            <div class="title">海拔高度</div>
+            <div class="title">气压</div>
         </div>
 
     </div>
@@ -37,53 +37,53 @@
     import Model from '../util/model'
 
     export default {
-        name: 'landing-page',
-        data() {
-            return {
-                model: {},
-                flightGesture:{
-                    roll:0,
-                    yaw:360,
-                    pitch:0,
-                },
-            }
-        },
-        methods: {
-            /**
+      name: 'landing-page',
+      data () {
+        return {
+          model: {},
+          flightGesture: {
+            roll: 0,
+            yaw: 360,
+            pitch: 0
+          }
+        }
+      },
+      methods: {
+        /**
              * 加载地图
              */
-            createMap() {
-                if (window.AMap) {
-                    var map = new window.AMap.Map('map', {
-                        // 是否监控地图容器尺寸变化
-                        resizeEnable: true,
-                        // 初始化地图层级
-                        zoom: 15,
-                        mapStyle: 'amap://styles/dark'
-                    });
-                }
-            },
-            /**
+        createMap () {
+          if (window.AMap) {
+            var map = new window.AMap.Map('map', {
+              // 是否监控地图容器尺寸变化
+              resizeEnable: true,
+              // 初始化地图层级
+              zoom: 15,
+              mapStyle: 'amap://styles/dark'
+            })
+          }
+        },
+        /**
              * 加载飞行器模型
              */
-            loadModel() {
-                this.model = new Model(document.getElementById('wrapper'), document.getElementById('canvas'));
-                //模拟飞行器姿势
-                setInterval(() => {
-                    this.model.rotateBy(this.flightGesture.roll, this.flightGesture.yaw, this.flightGesture.pitch);
-                    this.flightGesture.yaw--;
-                    if (this.flightGesture.yaw <= 0) {
-                        this.flightGesture.yaw = 360;
-                    }
-                }, 100);
+        loadModel () {
+          this.model = new Model(document.getElementById('wrapper'), document.getElementById('canvas'))
+          // 模拟飞行器姿势
+          setInterval(() => {
+            this.model.rotateBy(this.flightGesture.roll, this.flightGesture.yaw, this.flightGesture.pitch)
+            this.flightGesture.yaw--
+            if (this.flightGesture.yaw <= 0) {
+              this.flightGesture.yaw = 360
             }
-        },
-        mounted() {
-            this.loadModel();
-            this.createMap();
-        },
-        created() {
+          }, 100)
         }
+      },
+      mounted () {
+        this.loadModel()
+        this.createMap()
+    },
+      created () {
+      }
     }
 </script>
 
