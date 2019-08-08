@@ -10,23 +10,29 @@
                 <div class="processBar">
                     <div class="processBarName">Roll</div>
                     <div class="processBarFull">
-                        <div class="processBarValue" :style="{width:(flightGesture.roll/360*100)+'%',backgroundColor:'orange'}"></div>
+                        <div class="processBarValue"
+                             :style="{width:(flightGesture.roll/360*100)+'%',backgroundColor:'orange'}"></div>
                     </div>
                 </div>
                 <div class="processBar">
                     <div class="processBarName">Yaw</div>
                     <div class="processBarFull">
-                        <div class="processBarValue" :style="{width:(flightGesture.yaw/360*100)+'%',backgroundColor:'aqua'}"></div>
+                        <div class="processBarValue"
+                             :style="{width:(flightGesture.yaw/360*100)+'%',backgroundColor:'aqua'}"></div>
                     </div>
                 </div>
                 <div class="processBar">
                     <div class="processBarName">Pitch</div>
                     <div class="processBarFull">
-                        <div class="processBarValue" :style="{width:(flightGesture.pitch/360*100)+'%',backgroundColor:'aquamarine '}"></div>
+                        <div class="processBarValue"
+                             :style="{width:(flightGesture.pitch/360*100)+'%',backgroundColor:'aquamarine '}"></div>
                     </div>
                 </div>
             </div>
             <div class="title">气压</div>
+            <v-chart id="pressureChart" :options="pressure.option">
+
+            </v-chart>
         </div>
 
     </div>
@@ -37,53 +43,117 @@
     import Model from '../util/model'
 
     export default {
-      name: 'landing-page',
-      data () {
-        return {
-          model: {},
-          flightGesture: {
-            roll: 0,
-            yaw: 360,
-            pitch: 0
-          }
-        }
-      },
-      methods: {
-        /**
+        name: 'landing-page',
+        data() {
+            return {
+                model: {},
+                flightGesture: {
+                    roll: 0,
+                    yaw: 360,
+                    pitch: 0
+                },
+                pressure: {
+                    option: {
+                        // Make gradient line here
+                        visualMap: [{
+                            show: false,
+                            type: 'continuous',
+                            seriesIndex: 0,
+                            min: 0,
+                            max: 400
+                        }],
+                        tooltip: {
+                            trigger: 'axis',
+                            textStyle:{
+                                fontSize:8,
+                                color:'#000000'
+                            },
+                            backgroundColor:'#ffffff',
+                        },
+                        xAxis: [{
+                            type : 'category',
+                            data: ['01', '02', '03', '04', '05', '06', '07', '08', '09'],
+                            axisLine: {
+                                lineStyle: {
+                                    color: '#cccccc',
+                                    width:1
+                                }
+                            },
+                            axisLabel: {
+                                fontSize:8
+                            },
+                        }],
+                        yAxis: [{
+                            type : 'value',
+                            splitLine: {show: false},
+                            axisTick:{
+                                show:false
+                            },
+                            axisLine:{
+                                lineStyle:{
+                                    color:'#cccccc',
+                                    width:0
+                                }
+                            },
+                            axisLabel: {
+                                fontSize:8
+                            },
+                        }],
+                        grid: [{
+                            top: '5%',
+                            bottom: '15%',
+                            left:'13%',
+                            right:'5%'
+                        }],
+                        series: [{
+                            type: 'line',
+                            showSymbol: false,
+                            lineStyle:{
+                                width:2
+                            },
+                            data: [10, 200, 20, 300, 400, 11, 60, 80, 30]
+                        }]
+                    }
+
+                }
+            }
+        },
+        methods: {
+            /**
              * 加载地图
              */
-        createMap () {
-          if (window.AMap) {
-            var map = new window.AMap.Map('map', {
-              // 是否监控地图容器尺寸变化
-              resizeEnable: true,
-              // 初始化地图层级
-              zoom: 15,
-              mapStyle: 'amap://styles/dark'
-            })
-          }
-        },
-        /**
+            createMap() {
+                if (window.AMap) {
+                    var map = new window.AMap.Map('map', {
+                        // 是否监控地图容器尺寸变化
+                        resizeEnable: true,
+                        // 初始化地图层级
+                        zoom: 15,
+                        mapStyle: 'amap://styles/dark'
+                    })
+                }
+            },
+            /**
              * 加载飞行器模型
              */
-        loadModel () {
-          this.model = new Model(document.getElementById('wrapper'), document.getElementById('canvas'))
-          // 模拟飞行器姿势
-          setInterval(() => {
-            this.model.rotateBy(this.flightGesture.roll, this.flightGesture.yaw, this.flightGesture.pitch)
-            this.flightGesture.yaw--
-            if (this.flightGesture.yaw <= 0) {
-              this.flightGesture.yaw = 360
+            loadModel() {
+                this.model = new Model(document.getElementById('wrapper'), document.getElementById('canvas'))
+                // 模拟飞行器姿势
+                setInterval(() => {
+                    this.model.rotateBy(this.flightGesture.roll, this.flightGesture.yaw, this.flightGesture.pitch)
+                    this.flightGesture.yaw--
+                    if (this.flightGesture.yaw <= 0) {
+                        this.flightGesture.yaw = 360
+                    }
+                }, 100)
             }
-          }, 100)
+        },
+        mounted() {
+            this.loadModel()
+            this.createMap()
+        },
+        created() {
         }
-      },
-      mounted () {
-        this.loadModel()
-        this.createMap()
-    },
-      created () {
-      }
     }
 </script>
 
@@ -116,22 +186,27 @@
                     height: 180px;
                 }
             }
-            .processBar{
+
+            .processBar {
                 display: flex;
                 height: 1vw;
                 width: 90%;
                 margin: 0.5vw auto;
-                .processBarFull{
+
+                .processBarFull {
                     background-color: #000000;
                     flex: 1;
-                    .processBarValue{
+
+                    .processBarValue {
                         float: left;
                         height: 100%;
                         border-radius: 0.5vw;
                     }
+
                     border-radius: 0.5vw;
                 }
-                .processBarName{
+
+                .processBarName {
                     text-align: center;
                     width: 3vw;
                     font-size: 1vw;
@@ -140,6 +215,10 @@
                 }
             }
 
+            #pressureChart {
+                width: 100%;
+                height: 10vw;
+            }
         }
 
     }
