@@ -30,9 +30,13 @@
                 </div>
             </div>
             <div class="title">气压</div>
-            <v-chart id="pressureChart" :options="pressure.option">
-
-            </v-chart>
+            <v-chart class="pressureChart" :options="pressure.option"></v-chart>
+            <div class="title">GPS信息</div>
+            <div class="gpsInfo">
+                <div class="dataTab"><span class="dataTitle">经度:</span><span class="dataValue">{{gpsInfo.latitude}}</span></div>
+                <div class="dataTab"><span class="dataTitle">纬度:</span><span class="dataValue">{{gpsInfo.longitude}}</span></div>
+                <div class="dataTab"><span class="dataTitle">海拔:</span><span class="dataValue">{{gpsInfo.altitude}}</span></div>
+            </div>
         </div>
 
     </div>
@@ -115,6 +119,11 @@
                         }]
                     }
 
+                },
+                gpsInfo:{
+                    longitude:114.1176509857,
+                    latitude:22.5316645269,
+                    altitude:66.23,
                 }
             }
         },
@@ -215,9 +224,27 @@
                 }
             }
 
-            #pressureChart {
+            .pressureChart {
                 width: 100%;
                 height: 10vw;
+            }
+            .gpsInfo{
+                .dataTab{
+                    font-size: 1.5vw;
+                    color: #ffffff;
+                    text-align: left;
+                    font-weight: bold;
+                    padding-left: 1vw;
+                }
+                .dataTitle{
+                    display: inline-block;
+                    width: 4vw;
+                    text-align: right;
+                }
+                .dataValue{
+                    color: aqua;
+                    padding-left: 1vw;
+                }
             }
         }
 
